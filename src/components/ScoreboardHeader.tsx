@@ -123,11 +123,22 @@ export default function ScoreboardHeader({ gameState, language }: ScoreboardHead
           {gameState.status === 'live' ? (
             <>
               <div className="text-[9px] font-mono font-black tracking-widest text-emerald-400 uppercase flex items-center gap-1.5 justify-center md:justify-end">
-                <span className="inline-block w-2-checked w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+                <span className="inline-block w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
                 {isEn ? 'LIVE SCOREKEEPING' : 'SKOR LANGSUNG'}
               </div>
-              <div className="text-sm font-black text-slate-100 mt-1">
+              <div className="text-xs font-bold text-slate-100 mt-1">
                 {currentHalfInningLabel()}
+              </div>
+              <div className="mt-0.5">
+                <span className={`text-[8px] font-extrabold px-2 py-0.5 rounded-full font-mono uppercase border ${
+                  gameState.gameMode === 'fastpitch' 
+                    ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' 
+                    : 'bg-indigo-505/10 text-indigo-400 border-indigo-505/20'
+                }`}>
+                  {gameState.gameMode === 'fastpitch' 
+                    ? (isEn ? "⚡ Fastpitch (9P)" : "⚡ Fastpitch (9 Pemain)") 
+                    : (isEn ? "🐢 Slowpitch (10P)" : "🐢 Slowpitch (10 Pemain)")}
+                </span>
               </div>
               {/* TIMING ENGINE METRICS */}
               <div className="text-[10px] font-mono text-slate-400 border-t border-slate-850 pt-1 mt-1 flex gap-3 justify-center md:justify-end items-center">
@@ -144,6 +155,17 @@ export default function ScoreboardHeader({ gameState, language }: ScoreboardHead
               <div className="text-sm font-black text-amber-400 mt-1 uppercase tracking-tight">
                 🏆 {isEn ? 'FINISHED' : 'TAMAT'}
               </div>
+              <div className="mt-0.5">
+                <span className={`text-[8px] font-extrabold px-2 py-0.5 rounded-full font-mono uppercase border ${
+                  gameState.gameMode === 'fastpitch' 
+                    ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' 
+                    : 'bg-indigo-505/10 text-indigo-400 border-indigo-505/20'
+                }`}>
+                  {gameState.gameMode === 'fastpitch' 
+                    ? (isEn ? "⚡ Fastpitch (9P)" : "⚡ Fastpitch (9 Pemain)") 
+                    : (isEn ? "🐢 Slowpitch (10P)" : "🐢 Slowpitch (10 Pemain)")}
+                </span>
+              </div>
               {/* TIMING ENGINE METRICS */}
               <div className="text-[10px] font-mono text-slate-400 border-t border-slate-850 pt-1 mt-1 flex gap-3 justify-center md:justify-end items-center">
                 <span className="text-emerald-400 font-bold">⏱️ {formatTimer(gameState.elapsedSeconds)}</span>
@@ -158,6 +180,17 @@ export default function ScoreboardHeader({ gameState, language }: ScoreboardHead
               </div>
               <div className="text-sm font-black text-slate-300 mt-1 uppercase tracking-tight">
                 ⚙️ {isEn ? 'TEAM SETUP' : 'PERSEDIAAN PASUKAN'}
+              </div>
+              <div className="mt-0.5">
+                <span className={`text-[8px] font-extrabold px-2 py-0.5 rounded-full font-mono uppercase border ${
+                  gameState.gameMode === 'fastpitch' 
+                    ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' 
+                    : 'bg-indigo-505/10 text-indigo-400 border-indigo-505/20'
+                }`}>
+                  {gameState.gameMode === 'fastpitch' 
+                    ? (isEn ? "⚡ Fastpitch (9P)" : "⚡ Fastpitch (9 Pemain)") 
+                    : (isEn ? "🐢 Slowpitch (10P)" : "🐢 Slowpitch (10 Pemain)")}
+                </span>
               </div>
             </>
           )}

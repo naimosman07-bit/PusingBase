@@ -94,10 +94,9 @@ export default function StatsTable({ awayTeam, homeTeam, language }: StatsTableP
             <tbody className="divide-y divide-slate-800/60 font-mono">
               {selectedTeam.roster.map(player => (
                 <tr key={player.id} className="hover:bg-slate-800/10 text-slate-300">
-                  <td className="py-2.5 pr-2 font-sans font-semibold text-slate-200 truncate max-w-[120px]" title={player.name}>
-                    <span className="text-slate-500 mr-1.5">#{player.number}</span>
-                    {player.name}
-                    <span className="text-[10px] text-slate-500 ml-1">({player.position})</span>
+                  <td className="py-2.5 pr-2 font-sans font-semibold text-slate-200 truncate max-w-[120px]" title={player.name || (isEn ? 'Player' : 'Pemain')}>
+                    <span className="text-slate-500 mr-1.5">{player.number ? `#${player.number}` : '#—'}</span>
+                    {player.name || `${isEn ? 'Player' : 'Pemain'} (${player.position})`}
                   </td>
                   <td className="px-2 py-2.5 text-center font-medium bg-slate-950/20">{player.atBats}</td>
                   <td className="px-2 py-2.5 text-center text-slate-200">{player.runs}</td>
@@ -140,8 +139,8 @@ export default function StatsTable({ awayTeam, homeTeam, language }: StatsTableP
                   return (
                     <tr key={player.id} className="hover:bg-slate-800/10 text-slate-300">
                       <td className="py-2.5 pr-2 font-sans font-semibold text-slate-200 truncate max-w-[120px]">
-                        <span className="text-slate-500 mr-1.5">#{player.number}</span>
-                        {player.name}
+                        <span className="text-slate-500 mr-1.5">{player.number ? `#${player.number}` : '#—'}</span>
+                        {player.name || `${isEn ? 'Player' : 'Pemain'} (${player.position})`}
                       </td>
                       <td className="px-2 py-2.5 text-center font-bold bg-slate-950/20">{total}</td>
                       <td className="px-2 py-2.5 text-center text-emerald-400">{player.strikesThrown}</td>

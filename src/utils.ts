@@ -187,35 +187,41 @@ export const TRANSLATIONS: Record<Language, Record<string, string>> = {
   }
 };
 
-// Default Player presets (10 Starters + 2 reserves = 12 total, starting batting order has 10)
+// Default Player presets (10 Starters + 5 reserves = 15 total, starting batting order has 10)
 export const PRESET_AWAY_PLAYERS: Player[] = [
-  { id: 'a1', name: 'Ahmad Faiz', number: '7', position: 'SS', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
-  { id: 'a2', name: 'Zulhelmi Rosli', number: '24', position: '2B', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
-  { id: 'a3', name: 'Shahrul Naim', number: '10', position: 'CF', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
-  { id: 'a4', name: 'Khairul Anwar', number: '99', position: '3B', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
-  { id: 'a5', name: 'Ibrahim Al-Hafiz', number: '3', position: '1B', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
-  { id: 'a6', name: 'Farhan Salleh', number: '45', position: 'LF', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
-  { id: 'a7', name: 'Aiman Daniel', number: '11', position: 'RF', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
-  { id: 'a8', name: 'Shafiq Azmi', number: '5', position: 'C', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
-  { id: 'a9', name: 'Haziq Jasni', number: '17', position: 'P', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
-  { id: 'a10', name: 'Nabil Shah', number: '20', position: 'SF', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
-  { id: 'a11', name: 'Syahmi Safari', number: '13', position: 'DH', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
-  { id: 'a12', name: 'Faiz Nasir', number: '27', position: 'DH', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
+  { id: 'a1', name: '', number: '', position: 'SS', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
+  { id: 'a2', name: '', number: '', position: '2B', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
+  { id: 'a3', name: '', number: '', position: 'CF', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
+  { id: 'a4', name: '', number: '', position: '3B', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
+  { id: 'a5', name: '', number: '', position: '1B', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
+  { id: 'a6', name: '', number: '', position: 'LF', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
+  { id: 'a7', name: '', number: '', position: 'RF', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
+  { id: 'a8', name: '', number: '', position: 'C', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
+  { id: 'a9', name: '', number: '', position: 'P', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
+  { id: 'a10', name: '', number: '', position: 'SF', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
+  { id: 'a11', name: '', number: '', position: 'DH', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
+  { id: 'a12', name: '', number: '', position: 'DH', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
+  { id: 'a13', name: '', number: '', position: 'DH', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
+  { id: 'a14', name: '', number: '', position: 'DH', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
+  { id: 'a15', name: '', number: '', position: 'DH', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
 ];
 
 export const PRESET_HOME_PLAYERS: Player[] = [
-  { id: 'h1', name: 'Alex Johnson', number: '12', position: 'CF', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
-  { id: 'h2', name: 'Tyler Davis', number: '2', position: 'SS', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
-  { id: 'h3', name: 'Marcus Miller', number: '34', position: '1B', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
-  { id: 'h4', name: 'Ryan Rodriguez', number: '25', position: 'LF', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
-  { id: 'h5', name: 'Kyle Williams', number: '14', position: '3B', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
-  { id: 'h6', name: 'Sam Taylor', number: '8', position: '2B', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
-  { id: 'h7', name: 'Daniel Martinez', number: '21', position: 'RF', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
-  { id: 'h8', name: 'Mike Anderson', number: '44', position: 'C', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
-  { id: 'h9', name: 'Jack Peterson', number: '18', position: 'P', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
-  { id: 'h10', name: 'Tom Sterling', number: '30', position: 'SF', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
-  { id: 'h11', name: 'Bruce Bennett', number: '4', position: 'DH', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
-  { id: 'h12', name: 'Luke Vance', number: '15', position: 'DH', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
+  { id: 'h1', name: '', number: '', position: 'CF', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
+  { id: 'h2', name: '', number: '', position: 'SS', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
+  { id: 'h3', name: '', number: '', position: '1B', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
+  { id: 'h4', name: '', number: '', position: 'LF', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
+  { id: 'h5', name: '', number: '', position: '3B', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
+  { id: 'h6', name: '', number: '', position: '2B', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
+  { id: 'h7', name: '', number: '', position: 'RF', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
+  { id: 'h8', name: '', number: '', position: 'C', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
+  { id: 'h9', name: '', number: '', position: 'P', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
+  { id: 'h10', name: '', number: '', position: 'SF', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
+  { id: 'h11', name: '', number: '', position: 'DH', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
+  { id: 'h12', name: '', number: '', position: 'DH', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
+  { id: 'h13', name: '', number: '', position: 'DH', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
+  { id: 'h14', name: '', number: '', position: 'DH', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
+  { id: 'h15', name: '', number: '', position: 'DH', atBats: 0, runs: 0, hits: 0, rbis: 0, strikeouts: 0, walks: 0, pitchesThrown: 0, strikesThrown: 0, ballsThrown: 0, strikeoutsThrown: 0, walksThrown: 0, runsAllowed: 0 },
 ];
 
 export function createBlankGame(): GameState {
@@ -231,7 +237,7 @@ export function createBlankGame(): GameState {
     title: 'Weekend Softball Clash',
     status: 'setup',
     awayTeam: {
-      name: 'Harimau Softball Club',
+      name: 'Pendang Softball Club',
       roster: JSON.parse(JSON.stringify(PRESET_AWAY_PLAYERS)),
       battingOrder: PRESET_AWAY_PLAYERS.slice(0, 10).map(p => p.id),
     },
@@ -270,9 +276,10 @@ export function createBlankGame(): GameState {
       home: 0,
     },
     currentPitcherId: {
-      away: 'a9', // Pitcher from Harimau (id of P is a9 in roster setup)
+      away: 'a9', // Pitcher from Pendang (id of P is a9 in roster setup)
       home: 'h9', // Pitcher from Red Stallions
     },
+    gameMode: 'slowpitch',
     logs: [
       {
         id: 'start_log',

@@ -79,10 +79,10 @@ export default function LiveControls({
             {activeBatter ? (
               <div className="mt-1.5">
                 <span className="font-display text-base font-bold text-slate-100">
-                  {activeBatter.name}
+                  {activeBatter.name || `${isEn ? 'Batter' : 'Pemukul'} #${(currentBatterIdx % activeBattingTeam.roster.length) + 1}`}
                 </span>
                 <span className="ml-2 font-mono text-xs font-bold text-slate-400 bg-slate-800 px-1.5 py-0.5 rounded">
-                  #{activeBatter.number}
+                  {activeBatter.number ? `#${activeBatter.number}` : '-'}
                 </span>
                 <div className="text-[10px] font-mono font-medium text-slate-400 mt-1">
                   Pos: {activeBatter.position} | {isEn ? 'Hits' : 'Pukulan'}: {activeBatter.hits}/{activeBatter.atBats} AB | Runs: {activeBatter.runs} | RBIs: {activeBatter.rbis}
@@ -106,10 +106,10 @@ export default function LiveControls({
             {activePitcher ? (
               <div className="mt-1.5">
                 <span className="font-display text-base font-bold text-slate-100">
-                  {activePitcher.name}
+                  {activePitcher.name || `${isEn ? 'Pitcher' : 'Pelempar'}`}
                 </span>
                 <span className="ml-2 font-mono text-xs font-bold text-slate-400 bg-slate-800 px-1.5 py-0.5 rounded">
-                  #{activePitcher.number}
+                  {activePitcher.number ? `#${activePitcher.number}` : '-'}
                 </span>
                 <div className="text-[10px] font-mono font-medium text-slate-400 mt-1">
                   {isEn ? 'Pitches' : 'Balingan'}: {activePitcher.pitchesThrown} (S: {activePitcher.strikesThrown} / B: {activePitcher.ballsThrown}) | {isEn ? 'RA' : 'L.Kena'}: {activePitcher.runsAllowed}

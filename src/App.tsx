@@ -12,6 +12,7 @@ import BaseMap from './components/BaseMap';
 import StatsTable from './components/StatsTable';
 import RosterSetup from './components/RosterSetup';
 import HistoryList from './components/HistoryList';
+import WbscCheatSheet from './components/WbscCheatSheet';
 import { Trophy, HelpCircle, FileText, Settings, Heart, Plus, BookOpen, VolumeX, ArrowLeft, HeartOff, Landmark, Share } from 'lucide-react';
 
 export default function App() {
@@ -756,6 +757,174 @@ export default function App() {
     }
   };
 
+  // CUSTOM WBSC INTEGRATED SCOREPLAY LOGGER
+  const handleLogCustomWbscPlay = (params: {
+    symbol: string;
+    description: string;
+    playerName: string;
+    addOuts: number;
+    addHits: boolean;
+    addRuns: boolean;
+    addError: boolean;
+    resetCount: boolean;
+    clearBases: boolean;
+  }) => {
+    updateStateWithHistory(prev => {
+      const updated = { ...prev };
+      const { symbol, description, playerName, addOuts, addHits, addRuns, addError, resetCount, clearBases } = params;
+
+      const battingTeam = updated.isTopInning ? updated.awayTeam : updated.homeTeam;
+      const batterIdx = updated.isTopInning ? updated.currentBatterIndex.away : updated.currentBatterIndex.home;
+      const batterId = battingTeam.battingOrder[batterIdx % battingTeam.battingOrder.length];
+      const batter = battingTeam.roster.find(p => p.id === batterId);
+
+      const defensiveTeam = updated.isTopInning ? updated.homeTeam : updated.awayTeam;
+      const pitcherId = updated.isTopInning ? updated.currentPitcherId.home : updated.currentPitcherId.away;
+      const pitcher = defensiveTeam.roster.find(p => p.id === pitcherId) || defensiveTeam.roster[0];
+
+      // 1. Credit core atBats stats if relevant
+      const isPlateAppearance = ['1B', '2B', '3B', 'HR', 'BB', 'IBB', 'HBP', 'K', '■', 'SAC', 'SF', 'FC', 'E', 'CI', 'F7', 'F8', 'F9', 'L6', '6-3', '5-3', '4-3', 'U3', 'DP', 'TP'].includes(symbol);
+      
+      // Update individual batter stats
+      const subjectPlayerName = playerName.trim();
+      const subjectPlayer = battingTeam.roster.find(p => p.name.toLowerCase() === subjectPlayerName.toLowerCase()) || batter;
+
+      if (isPlateAppearance && subjectPlayer) {
+        subjectPlayer.atBats += 1;
+        if (symbol === 'K' || symbol === '■') {
+          subjectPlayer.strikeouts += 1;
+        }
+      }
+
+      // 2. Incremental hits
+      if (addHits) {
+        if (updated.isTopInning) {
+          updated.awayHitsTotal += 1;
+        } else {
+          updated.homeHitsTotal += 1;
+        }
+        if (subjectPlayer) {
+          subjectPlayer.hits += 1;
+        }
+      }
+
+      // 3. Incremental runs
+      if (addRuns) {
+        if (updated.isTopInning) {
+          updated.awayRunsTotal += 1;
+        } else {
+          updated.homeRunsTotal += 1;
+        }
+
+        // Add to InningScores tally
+        const currentInningScore = updated.inningScores.find(s => s.inning === updated.currentInning);
+        if (currentInningScore) {
+          if (updated.isTopInning) {
+            currentInningScore.awayRuns = (currentInningScore.awayRuns || 0) + 1;
+          } else {
+            currentInningScore.homeRuns = (currentInningScore.homeRuns || 0) + 1;
+          }
+        }
+
+        // Who scored?
+        if (subjectPlayer) {
+          subjectPlayer.runs += 1;
+        }
+        if (batter && subjectPlayer && batter.id !== subjectPlayer.id) {
+          batter.rbis += 1; // Credit active batter with RBI
+        }
+      }
+
+      // 4. Incremental defensive errors
+      if (addError) {
+        if (updated.isTopInning) {
+          updated.homeErrorsTotal += 1;
+        } else {
+          updated.awayErrorsTotal += 1;
+        }
+      }
+
+      // 5. Update defense Pitcher pitch count metrics
+      if (pitcher) {
+        pitcher.pitchesThrown += 1;
+        if (symbol === 'K' || symbol === '■') {
+          pitcher.strikesThrown += 1;
+          pitcher.strikeoutsThrown += 1;
+        } else if (addOuts > 0) {
+          pitcher.strikesThrown += 1;
+        }
+        if (addRuns) {
+          pitcher.runsAllowed += 1;
+        }
+      }
+
+      // 6. Incremental Outs tally
+      if (addOuts > 0) {
+        updated.outs += addOuts;
+      }
+
+      // 7. Base runners modifications
+      if (clearBases) {
+        updated.runners = { first: false, second: false, third: false };
+      } else if (symbol === '1B' || symbol === 'BB' || symbol === 'HBP') {
+        // Advance runners logically
+        const currentRunners = { ...updated.runners };
+        const nextRunners = { ...currentRunners };
+        if (currentRunners.first) nextRunners.second = true;
+        nextRunners.first = true;
+        updated.runners = nextRunners;
+      } else if (symbol === '2B') {
+        const currentRunners = { ...updated.runners };
+        const nextRunners = { ...currentRunners };
+        if (currentRunners.second) {
+          updated.awayRunsTotal += updated.isTopInning ? 1 : 0;
+          updated.homeRunsTotal += updated.isTopInning ? 0 : 1;
+        }
+        nextRunners.third = true;
+        nextRunners.second = true;
+        updated.runners = nextRunners;
+      } else if (symbol === '3B') {
+        updated.runners = { first: false, second: false, third: true };
+      } else if (symbol === 'HR') {
+        updated.runners = { first: false, second: false, third: false };
+      }
+
+      // 8. Resets ball/strikes
+      if (resetCount) {
+        updated.balls = 0;
+        updated.strikes = 0;
+      }
+
+      // 9. Advance Batting order index if batter completed plate appearance
+      if (isPlateAppearance) {
+        if (updated.isTopInning) {
+          updated.currentBatterIndex.away += 1;
+        } else {
+          updated.currentBatterIndex.home += 1;
+        }
+      }
+
+      // 10. Generate logs
+      const actEn = addRuns ? 'scored a run!' : addOuts > 0 ? 'was retired/outed.' : 'made a play.';
+      const actMs = addRuns ? 'menjaringkan larian!' : addOuts > 0 ? 'dikeluarkan dari padang (out).' : 'melakukan gerakan play.';
+
+      const outNoticeEn = addOuts > 0 ? ` (+${addOuts} Out)` : '';
+      const logSubjectName = subjectPlayerName || (updated.isTopInning ? 'Away batter' : 'Home batter');
+
+      const logEn = `[WBSC ${symbol}] ${logSubjectName}: ${description} - player ${actEn}${outNoticeEn}`;
+      const logMs = `[WBSC ${symbol}] ${logSubjectName}: ${description} - pemain ${actMs}${outNoticeEn}`;
+
+      addGameLog(updated, logEn, logMs);
+
+      // Handle third out transitioning
+      if (updated.outs >= 3) {
+        handleInningTransition(updated);
+      }
+
+      return updated;
+    });
+  };
+
   // END THE GAME AND RECORD SUMMARY
   const handleEndGame = () => {
     setGameState(prev => {
@@ -1220,6 +1389,13 @@ export default function App() {
                   ))}
                 </div>
               </div>
+
+              {/* WBSC interactive handbook & scoring system */}
+              <WbscCheatSheet
+                gameState={gameState}
+                onLogCustomWbscPlay={handleLogCustomWbscPlay}
+                language={language}
+              />
 
             </div>
 

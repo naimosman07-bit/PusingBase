@@ -83,6 +83,7 @@ export interface GameState {
   logs: GameEvent[];
   startTime?: string | null;
   elapsedSeconds?: number;
+  gameMode: 'fastpitch' | 'slowpitch';
 }
 
 export type Language = 'en' | 'ms';

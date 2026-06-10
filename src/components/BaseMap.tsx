@@ -36,7 +36,7 @@ export default function BaseMap({ runners, onToggleBase, language, gameState }: 
           <>
             {/* Jersey circle */}
             <div className="w-6 h-6 rounded-full bg-slate-900 border border-amber-400 text-[10px] font-black text-amber-400 flex items-center justify-center shadow-lg shadow-black/80 ring-2 ring-emerald-500/20 group-hover:scale-110 transition-transform">
-              {player.number}
+              {player.number || '-'}
             </div>
             {/* Position and Name tags */}
             <div className="mt-0.5 px-1 py-0.5 bg-slate-950/90 border border-slate-800 rounded flex flex-col items-center shadow-md select-none max-w-[55px]">
@@ -44,7 +44,7 @@ export default function BaseMap({ runners, onToggleBase, language, gameState }: 
                 {posCode}
               </span>
               <span className="text-[8px] font-bold text-slate-200 truncate w-12 text-center mt-px leading-none">
-                {player.name.split(' ')[0]}
+                {player.name ? player.name.split(' ')[0] : '—'}
               </span>
             </div>
           </>
@@ -122,7 +122,7 @@ export default function BaseMap({ runners, onToggleBase, language, gameState }: 
         {renderFielder('LF', 'top-[16%] left-[16%]')}
         {renderFielder('CF', 'top-[8%] left-1/2 -translate-x-1/2')}
         {renderFielder('RF', 'top-[16%] right-[16%]')}
-        {renderFielder('SF', 'top-[22%] left-1/2 -translate-x-1/2 bg-indigo-500/5 rounded-full p-0.5')}
+        {gameState.gameMode !== 'fastpitch' && renderFielder('SF', 'top-[22%] left-1/2 -translate-x-1/2 bg-indigo-500/5 rounded-full p-0.5')}
 
         {/* ========================================================
             BUTTONS: INTERACTIVE BASE PLATES (RUNNER OVERLAYS)
