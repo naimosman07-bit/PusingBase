@@ -238,13 +238,21 @@ export function createBlankGame(): GameState {
     status: 'setup',
     awayTeam: {
       name: 'Pendang Softball Club',
-      roster: JSON.parse(JSON.stringify(PRESET_AWAY_PLAYERS)),
-      battingOrder: PRESET_AWAY_PLAYERS.slice(0, 10).map(p => p.id),
+      roster: (() => {
+        const r = JSON.parse(JSON.stringify(PRESET_AWAY_PLAYERS));
+        if (r[10]) r[10].position = 'EP';
+        return r;
+      })(),
+      battingOrder: PRESET_AWAY_PLAYERS.slice(0, 11).map(p => p.id),
     },
     homeTeam: {
       name: 'Red Stallions FC',
-      roster: JSON.parse(JSON.stringify(PRESET_HOME_PLAYERS)),
-      battingOrder: PRESET_HOME_PLAYERS.slice(0, 10).map(p => p.id),
+      roster: (() => {
+        const r = JSON.parse(JSON.stringify(PRESET_HOME_PLAYERS));
+        if (r[10]) r[10].position = 'EP';
+        return r;
+      })(),
+      battingOrder: PRESET_HOME_PLAYERS.slice(0, 11).map(p => p.id),
     },
     currentInning: 1,
     isTopInning: true,
@@ -307,4 +315,5 @@ export const SOFTBALL_POSITIONS = [
   { value: 'SF', labelEn: 'Rover / Short Fielder (SF)', labelMs: 'Rover Padang (SF)' },
   { value: 'DH', labelEn: 'Designated Batter (DH)', labelMs: 'Pemukul Khas (DH)' },
   { value: 'DP', labelEn: 'Designated Player (DP)', labelMs: 'Pemain Khas Memukul (DP)' },
+  { value: 'EP', labelEn: 'Extra Player (EP - Slowpitch)', labelMs: 'Pemukul Tambahan (EP - Slowpitch)' },
 ];
