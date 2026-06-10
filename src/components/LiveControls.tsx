@@ -56,7 +56,7 @@ export default function LiveControls({
   // Identify active batter
   const activeBattingTeam = isTopInning ? awayTeam : homeTeam;
   const currentBatterIdx = isTopInning ? currentBatterIndex.away : currentBatterIndex.home;
-  const activeBatterId = activeBattingTeam.battingOrder[currentBatterIdx % activeBattingTeam.roster.length];
+  const activeBatterId = activeBattingTeam.battingOrder[currentBatterIdx % (activeBattingTeam.battingOrder.length || 1)];
   const activeBatter = activeBattingTeam.roster.find(p => p.id === activeBatterId);
 
   // Identify active pitcher (opposing team)
@@ -79,7 +79,7 @@ export default function LiveControls({
             {activeBatter ? (
               <div className="mt-1.5">
                 <span className="font-display text-base font-bold text-slate-100">
-                  {activeBatter.name || `${isEn ? 'Batter' : 'Pemukul'} #${(currentBatterIdx % activeBattingTeam.roster.length) + 1}`}
+                  {activeBatter.name || `${isEn ? 'Batter' : 'Pemukul'} #${(currentBatterIdx % (activeBattingTeam.battingOrder.length || 1)) + 1}`}
                 </span>
                 <span className="ml-2 font-mono text-xs font-bold text-slate-400 bg-slate-800 px-1.5 py-0.5 rounded">
                   {activeBatter.number ? `#${activeBatter.number}` : '-'}

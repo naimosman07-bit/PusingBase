@@ -136,8 +136,8 @@ export default function ScoreboardHeader({ gameState, language }: ScoreboardHead
                     : 'bg-indigo-505/10 text-indigo-400 border-indigo-505/20'
                 }`}>
                   {gameState.gameMode === 'fastpitch' 
-                    ? (isEn ? "⚡ Fastpitch (9P)" : "⚡ Fastpitch (9 Pemain)") 
-                    : (isEn ? "🐢 Slowpitch (10P)" : "🐢 Slowpitch (10 Pemain)")}
+                    ? (isEn ? "⚡ Fastpitch (10 Batters / 9 Defense)" : "⚡ Fastpitch (10 Pemukul / 9 Pemadang)") 
+                    : (isEn ? "🐢 Slowpitch (10 Batters / 10 Defense)" : "🐢 Slowpitch (10 Pemukul / 10 Pemadang)")}
                 </span>
               </div>
               {/* TIMING ENGINE METRICS */}
@@ -162,8 +162,8 @@ export default function ScoreboardHeader({ gameState, language }: ScoreboardHead
                     : 'bg-indigo-505/10 text-indigo-400 border-indigo-505/20'
                 }`}>
                   {gameState.gameMode === 'fastpitch' 
-                    ? (isEn ? "⚡ Fastpitch (9P)" : "⚡ Fastpitch (9 Pemain)") 
-                    : (isEn ? "🐢 Slowpitch (10P)" : "🐢 Slowpitch (10 Pemain)")}
+                    ? (isEn ? "⚡ Fastpitch (10 Batters / 9 Defense)" : "⚡ Fastpitch (10 Pemukul / 9 Pemadang)") 
+                    : (isEn ? "🐢 Slowpitch (10 Batters / 10 Defense)" : "🐢 Slowpitch (10 Pemukul / 10 Pemadang)")}
                 </span>
               </div>
               {/* TIMING ENGINE METRICS */}
@@ -188,8 +188,8 @@ export default function ScoreboardHeader({ gameState, language }: ScoreboardHead
                     : 'bg-indigo-505/10 text-indigo-400 border-indigo-505/20'
                 }`}>
                   {gameState.gameMode === 'fastpitch' 
-                    ? (isEn ? "⚡ Fastpitch (9P)" : "⚡ Fastpitch (9 Pemain)") 
-                    : (isEn ? "🐢 Slowpitch (10P)" : "🐢 Slowpitch (10 Pemain)")}
+                    ? (isEn ? "⚡ Fastpitch (10 Batters / 9 Defense)" : "⚡ Fastpitch (10 Pemukul / 9 Pemadang)") 
+                    : (isEn ? "🐢 Slowpitch (10 Batters / 10 Defense)" : "🐢 Slowpitch (10 Pemukul / 10 Pemadang)")}
                 </span>
               </div>
             </>

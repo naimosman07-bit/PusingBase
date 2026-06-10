@@ -167,9 +167,9 @@ export default function WbscCheatSheet({ gameState, onLogCustomWbscPlay, languag
     if (!pName) {
       const activeBattingTeam = gameState.isTopInning ? gameState.awayTeam : gameState.homeTeam;
       const currentBatterIdx = gameState.isTopInning ? gameState.currentBatterIndex.away : gameState.currentBatterIndex.home;
-      const batterId = activeBattingTeam.battingOrder[currentBatterIdx % activeBattingTeam.roster.length];
+      const batterId = activeBattingTeam.battingOrder[currentBatterIdx % (activeBattingTeam.battingOrder.length || 1)];
       const batter = activeBattingTeam.roster.find(p => p.id === batterId);
-      pName = batter && batter.name ? batter.name : `${isEn ? 'Batter' : 'Pemukul'} #${(currentBatterIdx % activeBattingTeam.roster.length) + 1}`;
+      pName = batter && batter.name ? batter.name : `${isEn ? 'Batter' : 'Pemukul'} #${(currentBatterIdx % (activeBattingTeam.battingOrder.length || 1)) + 1}`;
     }
 
     onLogCustomWbscPlay({
@@ -203,9 +203,9 @@ export default function WbscCheatSheet({ gameState, onLogCustomWbscPlay, languag
   }) => {
     const activeBattingTeam = gameState.isTopInning ? gameState.awayTeam : gameState.homeTeam;
     const currentBatterIdx = gameState.isTopInning ? gameState.currentBatterIndex.away : gameState.currentBatterIndex.home;
-    const batterId = activeBattingTeam.battingOrder[currentBatterIdx % activeBattingTeam.roster.length];
+    const batterId = activeBattingTeam.battingOrder[currentBatterIdx % (activeBattingTeam.battingOrder.length || 1)];
     const batter = activeBattingTeam.roster.find(p => p.id === batterId);
-    const pName = sit.subjectPlayer || (batter && batter.name ? batter.name : `${isEn ? 'Batter' : 'Pemukul'} #${(currentBatterIdx % activeBattingTeam.roster.length) + 1}`);
+    const pName = sit.subjectPlayer || (batter && batter.name ? batter.name : `${isEn ? 'Batter' : 'Pemukul'} #${(currentBatterIdx % (activeBattingTeam.battingOrder.length || 1)) + 1}`);
 
     onLogCustomWbscPlay({
       symbol: sit.symbol,

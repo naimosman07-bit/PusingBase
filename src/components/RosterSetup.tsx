@@ -95,7 +95,7 @@ export default function RosterSetup({ gameState, onChangeGameState, onStartGame,
       const updated = { ...prev };
       updated.gameMode = mode;
       
-      const count = mode === 'fastpitch' ? 9 : 10;
+      const count = 10;
       
       // Keep batting order aligned with the exact roster slice length
       updated.awayTeam.battingOrder = updated.awayTeam.roster.slice(0, count).map(p => p.id);
@@ -103,18 +103,31 @@ export default function RosterSetup({ gameState, onChangeGameState, onStartGame,
       
       // Clean up position conflicts for field position
       if (mode === 'fastpitch') {
-        updated.awayTeam.roster.forEach(p => {
-          if (p.position === 'SF') p.position = 'DH';
+        updated.awayTeam.roster.forEach((p, idx) => {
+          if (p.position === 'SF') p.position = 'DP';
+          if (idx === 9 && (p.position === 'DH' || p.position === 'DP' || p.position === 'SF')) {
+            p.position = 'DP';
+          }
         });
-        updated.homeTeam.roster.forEach(p => {
-          if (p.position === 'SF') p.position = 'DH';
+        updated.homeTeam.roster.forEach((p, idx) => {
+          if (p.position === 'SF') p.position = 'DP';
+          if (idx === 9 && (p.position === 'DH' || p.position === 'DP' || p.position === 'SF')) {
+            p.position = 'DP';
+          }
         });
       } else {
         // If slowpitch, ensure we have SF assigned back to the 10th player to make it convenient
-        if (updated.awayTeam.roster[9] && updated.awayTeam.roster[9].position === 'DH') {
+        updated.awayTeam.roster.forEach((p, idx) => {
+          if (p.position === 'DP') p.position = 'SF';
+        });
+        if (updated.awayTeam.roster[9] && (updated.awayTeam.roster[9].position === 'DH' || updated.awayTeam.roster[9].position === 'DP' || updated.awayTeam.roster[9].position === 'SF')) {
           updated.awayTeam.roster[9].position = 'SF';
         }
-        if (updated.homeTeam.roster[9] && updated.homeTeam.roster[9].position === 'DH') {
+        
+        updated.homeTeam.roster.forEach((p, idx) => {
+          if (p.position === 'DP') p.position = 'SF';
+        });
+        if (updated.homeTeam.roster[9] && (updated.homeTeam.roster[9].position === 'DH' || updated.homeTeam.roster[9].position === 'DP' || updated.homeTeam.roster[9].position === 'SF')) {
           updated.homeTeam.roster[9].position = 'SF';
         }
       }
@@ -129,20 +142,26 @@ export default function RosterSetup({ gameState, onChangeGameState, onStartGame,
       updated.awayTeam = {
         name: 'Pendang Softball Club',
         roster: JSON.parse(JSON.stringify(PRESET_AWAY_PLAYERS)),
-        battingOrder: PRESET_AWAY_PLAYERS.slice(0, (updated.gameMode === 'fastpitch' ? 9 : 10)).map(p => p.id),
+        battingOrder: PRESET_AWAY_PLAYERS.slice(0, 10).map(p => p.id),
       };
       updated.homeTeam = {
-        name: 'Red Stallions SC',
+        name: 'Red Stallions FC',
         roster: JSON.parse(JSON.stringify(PRESET_HOME_PLAYERS)),
-        battingOrder: PRESET_HOME_PLAYERS.slice(0, (updated.gameMode === 'fastpitch' ? 9 : 10)).map(p => p.id),
+        battingOrder: PRESET_HOME_PLAYERS.slice(0, 10).map(p => p.id),
       };
       updated.currentPitcherId = {
         away: 'a9',
         home: 'h9',
       };
       if (updated.gameMode === 'fastpitch') {
-        updated.awayTeam.roster.forEach(p => { if (p.position === 'SF') p.position = 'DH'; });
-        updated.homeTeam.roster.forEach(p => { if (p.position === 'SF') p.position = 'DH'; });
+        updated.awayTeam.roster.forEach((p, idx) => {
+          if (p.position === 'SF') p.position = 'DP';
+          if (idx === 9) p.position = 'DP';
+        });
+        updated.homeTeam.roster.forEach((p, idx) => {
+          if (p.position === 'SF') p.position = 'DP';
+          if (idx === 9) p.position = 'DP';
+        });
       }
       return updated;
     });
@@ -213,7 +232,7 @@ export default function RosterSetup({ gameState, onChangeGameState, onStartGame,
                 className="w-20 h-20 rounded-2xl border border-amber-400 shadow-lg shadow-black object-cover" 
                 referrerPolicy="no-referrer"
               />
-              <span className="text-xs font-mono font-bold text-amber-400">Pendang SB</span>
+              <span className="text-xs font-mono font-bold text-amber-400">PusingBase</span>
               <span className="text-[10px] text-slate-500">Android & iOS Icon</span>
             </div>
             
@@ -232,7 +251,7 @@ export default function RosterSetup({ gameState, onChangeGameState, onStartGame,
                     <li>{isEn ? "Open this app in native Safari browser." : "Buka aplikasi ini dalam pelayar Safari."}</li>
                     <li>{isEn ? "Tap the Share button at the bottom." : "Tekan butang Kongsi (Share) di bahagian bawah."}</li>
                     <li>{isEn ? "Select 'Add to Home Screen'." : "Pilih 'Tambah ke Skrin Utama / Add to Home Screen'."}</li>
-                    <li>{isEn ? "Name it 'Pendang SB' and tap Add." : "Namakan 'Pendang SB' dan tekan Tambah."}</li>
+                    <li>{isEn ? "Name it 'PusingBase' and tap Add." : "Namakan 'PusingBase' dan tekan Tambah."}</li>
                   </ol>
                 </div>
                 
@@ -387,13 +406,13 @@ export default function RosterSetup({ gameState, onChangeGameState, onStartGame,
                   <span>🏏 {isEn ? "Starting Lineup (Starters)" : "Kesebelasan Utama (Starters)"}</span>
                   <span className="text-[10px] bg-indigo-500/10 text-indigo-300 font-sans px-1.5 py-0.2 rounded">
                     {gameState.gameMode === 'fastpitch' 
-                      ? (isEn ? "9 Batters" : "9 Pemukul Pertama") 
+                      ? (isEn ? "10 Batters (9 Defense + 1 DP)" : "10 Pemukul (9 Padang + 1 DP)") 
                       : (isEn ? "10 Batters" : "10 Pemukul Pertama")}
                   </span>
                 </div>
               )}
               {/* Reserves Section Header */}
-              {idx === (gameState.gameMode === 'fastpitch' ? 9 : 10) && (
+              {idx === 10 && (
                 <div className="bg-slate-900/90 px-4 py-2 text-[11px] font-bold text-amber-400 font-mono flex items-center gap-2 border-b border-slate-800 border-t border-slate-800">
                   <span>📋 {isEn ? "Reserves (Bench)" : "Barisan Simpanan (Reserves)"}</span>
                   <span className="text-[10px] bg-amber-500/10 text-amber-300 font-sans px-1.5 py-0.2 rounded">

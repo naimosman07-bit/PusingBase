@@ -306,4 +306,5 @@ export const SOFTBALL_POSITIONS = [
   { value: 'RF', labelEn: 'Right Field (RF)', labelMs: 'Padang Kanan (RF)' },
   { value: 'SF', labelEn: 'Rover / Short Fielder (SF)', labelMs: 'Rover Padang (SF)' },
   { value: 'DH', labelEn: 'Designated Batter (DH)', labelMs: 'Pemukul Khas (DH)' },
+  { value: 'DP', labelEn: 'Designated Player (DP)', labelMs: 'Pemain Khas Memukul (DP)' },
 ];
