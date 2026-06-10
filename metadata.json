@@ -1,0 +1,6 @@
+{
+  "name": "PusingBase",
+  "description": "Premium digital softball scorebook and tracking companion for coaches and players. Developed for PusingBase sports metrics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
