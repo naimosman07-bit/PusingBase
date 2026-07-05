@@ -20,6 +20,7 @@ export default function App() {
   const [historyStack, setHistoryStack] = useState<string[]>([]); // Serialized JSON state stack for 100% accurate Undo
   const [gamesList, setGamesList] = useState<GameState[]>([]);
   const [language, setLanguage] = useState<Language>('ms'); // Default to 'ms' since user requested in Malay
+  const [mobileTab, setMobileTab] = useState<'score' | 'field' | 'actions' | 'roster' | 'logs'>('score');
 
   // Live Substitution local dropdown states
   const [subTeam, setSubTeam] = useState<'away' | 'home'>('away');
@@ -241,7 +242,7 @@ export default function App() {
         addGameLog(
           updated,
           `Ball 4! ${batter ? batter.name : 'Batter'} walks to 1st Base.${runScored ? ' Run scores!' : ''}`,
-          `Bola Ke-4! Pemukul ${batter ? batter.name : 'Pemain'} berjalan ke Tapak Pertama.${runScored ? ' Larian dijaringkan!' : ''}`
+          `Bola Ke-4! Pemukul ${batter ? batter.name : 'Pemain'} berjalan ke Tapak Pertama.${runScored ? ' Larian berjaya diperoleh!' : ''}`
         );
       } else {
         updated.balls = nextBalls;
@@ -606,7 +607,7 @@ export default function App() {
       let msgMs = `${batter ? batter.name : 'Pemukul'} mencatatkan ${hitTypeMs}!`;
       if (runsEarned > 0) {
         msgEn += ` ${runsEarned} run(s) scored!`;
-        msgMs += ` ${runsEarned} larian berjaya dijaringkan!`;
+        msgMs += ` ${runsEarned} larian berjaya diperoleh!`;
       }
 
       addGameLog(updated, msgEn, msgMs);
@@ -906,7 +907,7 @@ export default function App() {
 
       // 10. Generate logs
       const actEn = addRuns ? 'scored a run!' : addOuts > 0 ? 'was retired/outed.' : 'made a play.';
-      const actMs = addRuns ? 'menjaringkan larian!' : addOuts > 0 ? 'dikeluarkan dari padang (out).' : 'melakukan gerakan play.';
+      const actMs = addRuns ? 'mencatatkan larian!' : addOuts > 0 ? 'dikeluarkan dari padang (out).' : 'melakukan gerakan play.';
 
       const outNoticeEn = addOuts > 0 ? ` (+${addOuts} Out)` : '';
       const logSubjectName = subjectPlayerName || (updated.isTopInning ? 'Away batter' : 'Home batter');
@@ -1210,6 +1211,79 @@ export default function App() {
               {/* Scoreboard table */}
               <ScoreboardHeader gameState={gameState} language={language} />
 
+              {/* Responsive Segmented Tab Bar for Smartphone Comfort */}
+              <div id="mobile-tab-navigation" className="lg:hidden flex bg-slate-900 border border-slate-800 p-1.5 rounded-2xl gap-1 overflow-x-auto shadow-lg sticky top-[58px] z-30 scrollbar-none">
+                <button
+                  type="button"
+                  id="tab-score-btn"
+                  onClick={() => setMobileTab('score')}
+                  className={`flex-1 min-w-[65px] py-2 px-1 rounded-xl text-[10px] font-bold flex flex-col items-center gap-1 transition-all cursor-pointer ${
+                    mobileTab === 'score'
+                      ? 'bg-indigo-600/25 text-indigo-400 border border-indigo-500/30 font-black'
+                      : 'text-slate-400 hover:text-slate-200 border border-transparent'
+                  }`}
+                >
+                  <span className="text-sm">🎮</span>
+                  <span className="whitespace-nowrap">{isEn ? 'Score' : 'Skor'}</span>
+                </button>
+                
+                <button
+                  type="button"
+                  id="tab-field-btn"
+                  onClick={() => setMobileTab('field')}
+                  className={`flex-1 min-w-[65px] py-2 px-1 rounded-xl text-[10px] font-bold flex flex-col items-center gap-1 transition-all cursor-pointer ${
+                    mobileTab === 'field'
+                      ? 'bg-indigo-600/25 text-indigo-400 border border-indigo-500/30 font-black'
+                      : 'text-slate-400 hover:text-slate-200 border border-transparent'
+                  }`}
+                >
+                  <span className="text-sm">🥎</span>
+                  <span className="whitespace-nowrap">{isEn ? 'Field' : 'Padang'}</span>
+                </button>
+
+                <button
+                  type="button"
+                  id="tab-actions-btn"
+                  onClick={() => setMobileTab('actions')}
+                  className={`flex-1 min-w-[65px] py-2 px-1 rounded-xl text-[10px] font-bold flex flex-col items-center gap-1 transition-all cursor-pointer ${
+                    mobileTab === 'actions'
+                      ? 'bg-indigo-600/25 text-indigo-400 border border-indigo-500/30 font-black'
+                      : 'text-slate-400 hover:text-slate-200 border border-transparent'
+                  }`}
+                >
+                  <span className="text-sm">⚡</span>
+                  <span className="whitespace-nowrap">{isEn ? 'Hits/Outs' : 'Tindakan'}</span>
+                </button>
+
+                <button
+                  type="button"
+                  id="tab-roster-btn"
+                  onClick={() => setMobileTab('roster')}
+                  className={`flex-1 min-w-[65px] py-2 px-1 rounded-xl text-[10px] font-bold flex flex-col items-center gap-1 transition-all cursor-pointer ${
+                    mobileTab === 'roster'
+                      ? 'bg-indigo-600/25 text-indigo-400 border border-indigo-500/30 font-black'
+                      : 'text-slate-400 hover:text-slate-200 border border-transparent'
+                  }`}
+                >
+                  <span className="text-sm">🔄</span>
+                  <span className="whitespace-nowrap">{isEn ? 'Players' : 'Pemain'}</span>
+                </button>
+
+                <button
+                  type="button"
+                  id="tab-logs-btn"
+                  onClick={() => setMobileTab('logs')}
+                  className={`flex-1 min-w-[65px] py-2 px-1 rounded-xl text-[10px] font-bold flex flex-col items-center gap-1 transition-all cursor-pointer ${
+                    mobileTab === 'logs'
+                      ? 'bg-indigo-600/25 text-indigo-400 border border-indigo-500/30 font-black'
+                      : 'text-slate-400 hover:text-slate-200 border border-transparent'
+                  }`}
+                >
+                  <span className="text-sm">📄</span>
+                  <span className="whitespace-nowrap">{isEn ? 'Logs/WBSC' : 'Log'}</span>
+                </button>
+              </div>
+
               {/* Event logging and counts tracking controllers */}
               <LiveControls
                 gameState={gameState}
@@ -1225,10 +1299,11 @@ export default function App() {
                 onUndo={handleUndo}
                 onEndGame={handleEndGame}
                 language={language}
+                mobileTab={mobileTab}
               />
 
               {/* Premium Panel: Pertukaran Live & Laporan Hub (Substitution & Reports Hub) */}
-              <div id="subs-report-hub" className="bg-slate-900 border border-slate-800 rounded-2xl p-5 md:p-6 shadow-xl flex flex-col gap-5">
+              <div id="subs-report-hub" className={`bg-slate-900 border border-slate-800 rounded-2xl p-5 md:p-6 shadow-xl flex flex-col gap-5 ${mobileTab === 'roster' ? 'flex' : 'hidden lg:flex'}`}>
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
                   <div>
                     <h3 className="font-display font-extrabold text-white text-sm tracking-tight flex items-center gap-2">
@@ -1339,11 +1414,13 @@ export default function App() {
               </div>
 
               {/* Individual Roster and metrics list */}
-              <StatsTable
-                awayTeam={gameState.awayTeam}
-                homeTeam={gameState.homeTeam}
-                language={language}
-              />
+              <div className={mobileTab === 'roster' ? 'block' : 'hidden lg:block'}>
+                <StatsTable
+                  awayTeam={gameState.awayTeam}
+                  homeTeam={gameState.homeTeam}
+                  language={language}
+                />
+              </div>
 
             </div>
 
@@ -1351,15 +1428,17 @@ export default function App() {
             <div className="lg:col-span-1 flex flex-col gap-6 md:gap-8 hierarchy-sidebar">
               
               {/* Tactical Diamond field base runners */}
-              <BaseMap
-                runners={gameState.runners}
-                onToggleBase={handleToggleBase}
-                language={language}
-                gameState={gameState}
-              />
+              <div className={mobileTab === 'field' ? 'block' : 'hidden lg:block'}>
+                <BaseMap
+                  runners={gameState.runners}
+                  onToggleBase={handleToggleBase}
+                  language={language}
+                  gameState={gameState}
+                />
+              </div>
 
               {/* Real-time Play-by-play event streaming */}
-              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg flex flex-col h-[380px]">
+              <div className={`bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg flex flex-col h-[380px] ${mobileTab === 'logs' ? 'flex' : 'hidden lg:flex'}`}>
                 <div className="border-b border-slate-800 pb-3 mb-3 flex items-center justify-between">
                   <h3 className="font-display text-xs font-bold text-slate-350 tracking-wider uppercase flex items-center gap-1.5">
                     <FileText className="w-3.5 h-3.5 text-indigo-400" />
@@ -1391,11 +1470,13 @@ export default function App() {
               </div>
 
               {/* WBSC interactive handbook & scoring system */}
-              <WbscCheatSheet
-                gameState={gameState}
-                onLogCustomWbscPlay={handleLogCustomWbscPlay}
-                language={language}
-              />
+              <div className={mobileTab === 'logs' ? 'block' : 'hidden lg:block'}>
+                <WbscCheatSheet
+                  gameState={gameState}
+                  onLogCustomWbscPlay={handleLogCustomWbscPlay}
+                  language={language}
+                />
+              </div>
 
             </div>
 

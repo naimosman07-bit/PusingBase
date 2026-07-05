@@ -22,6 +22,7 @@ interface LiveControlsProps {
   onUndo: () => void;
   onEndGame: () => void;
   language: Language;
+  mobileTab?: 'score' | 'field' | 'actions' | 'roster' | 'logs';
 }
 
 export default function LiveControls({
@@ -38,6 +39,7 @@ export default function LiveControls({
   onUndo,
   onEndGame,
   language,
+  mobileTab,
 }: LiveControlsProps) {
   const t = TRANSLATIONS[language];
   const isEn = language === 'en';
@@ -69,7 +71,7 @@ export default function LiveControls({
   return (
     <div className="flex flex-col gap-5">
       {/* Active Batter & Pitcher Dual-Card */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className={`grid grid-cols-1 sm:grid-cols-2 gap-4 ${mobileTab && mobileTab !== 'score' ? 'hidden lg:grid' : ''}`}>
         {/* At Bat */}
         <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex items-center justify-between shadow">
           <div>
@@ -126,7 +128,7 @@ export default function LiveControls({
       </div>
 
       {/* Visual Game Counts Dashboard LED Indicators */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg relative overflow-hidden">
+      <div className={`bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg relative overflow-hidden ${mobileTab && mobileTab !== 'score' ? 'hidden lg:block' : ''}`}>
         <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-full blur-xl pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-24 h-24 bg-rose-500/5 rounded-full blur-xl pointer-events-none" />
         
@@ -200,7 +202,7 @@ export default function LiveControls({
       </div>
 
       {/* QUICK PITCH & COUNT ADVANCERS (High Impact Vibrant Buttons) */}
-      <div className="bg-slate-900 border border-slate-800 p-5 rounded-2xl flex flex-col gap-3.5 shadow-md">
+      <div className={`bg-slate-900 border border-slate-800 p-5 rounded-2xl flex flex-col gap-3.5 shadow-md ${mobileTab && mobileTab !== 'score' ? 'hidden lg:flex' : ''}`}>
         <div className="text-[10px] font-mono tracking-widest font-black text-slate-400 uppercase">
           {isEn ? 'PITCH ACTION PAD' : 'PAD TINDAKAN BALINGAN'}
         </div>
@@ -241,7 +243,7 @@ export default function LiveControls({
       </div>
 
       {/* POSITIVE HITS / BATTING SUCCESS */}
-      <div className="bg-slate-905 border border-slate-800 p-4 rounded-2xl flex flex-col gap-3">
+      <div className={`bg-slate-905 border border-slate-800 p-4 rounded-2xl flex flex-col gap-3 ${mobileTab && mobileTab !== 'actions' ? 'hidden lg:flex' : ''}`}>
         <div className="text-[10px] font-mono tracking-wider font-bold text-slate-500 uppercase">
           {isEn ? 'BATTER SUCCESSFUL HITS' : 'KEJAYAAN PEMUKUL (HITS)'}
         </div>
@@ -293,7 +295,7 @@ export default function LiveControls({
       </div>
 
       {/* OUTS & SPECIAL LOGGING */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className={`grid grid-cols-1 md:grid-cols-2 gap-4 ${mobileTab && mobileTab !== 'actions' ? 'hidden lg:grid' : ''}`}>
         {/* Play Outs */}
         <div className="bg-slate-905 border border-slate-800 p-4 rounded-2xl flex flex-col gap-3">
           <div className="text-[10px] font-mono tracking-wider font-bold text-slate-500 uppercase flex items-center gap-1.5 text-rose-400">
@@ -369,7 +371,7 @@ export default function LiveControls({
       </div>
 
       {/* QUICK OPERATIONS & UNDO & FINISH */}
-      <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
+      <div className={`flex flex-wrap items-center justify-between gap-3 pt-2 ${mobileTab && mobileTab !== 'score' && mobileTab !== 'actions' ? 'hidden lg:flex' : ''}`}>
         <div className="flex items-center gap-2">
           {/* Reset Count */}
           <button

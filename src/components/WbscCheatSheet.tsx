@@ -78,7 +78,7 @@ const WBSC_SYMBOLS_DATA: SymbolItem[] = [
   { code: 'PO', nameEn: 'Pick Off', nameMs: 'Mati Pick-Off (PO)', category: 'running', subTextEn: 'Runner tagged off base by pitcher catch throw', subTextMs: 'Pelari terpancing keluar tapak oleh balingan' },
   { code: 'WP', nameEn: 'Wild Pitch', nameMs: 'Balingan Terbabas (WP)', category: 'running', subTextEn: 'Pitcher throws wildly past catcher', subTextMs: 'Pelempar membaling terlampau tinggi/liar' },
   { code: 'PB', nameEn: 'Passed Ball', nameMs: 'Bola Terlepas (PB)', category: 'running', subTextEn: 'Catcher drops a catchable ball', subTextMs: 'Penangkap terlepas tangkapan bola mudah' },
-  { code: 'R', nameEn: 'Run Scored', nameMs: 'Larian Dijaringkan (R)', category: 'running', subTextEn: 'Runner crosses home plate safely', subTextMs: 'Pelari melintasi tapak penamat dengan selamat' },
+  { code: 'R', nameEn: 'Run Scored', nameMs: 'Larian Berjaya (R)', category: 'running', subTextEn: 'Runner crosses home plate safely', subTextMs: 'Pelari melintasi tapak penamat dengan selamat' },
 
   // Special Symbols
   { code: 'IF', nameEn: 'Infield Fly', nameMs: 'Infield Fly (IF)', category: 'special', subTextEn: 'Automatic out declared on shallow popup with runners', subTextMs: 'Mati automatik untuk bola layang mudah zon dalam' },
