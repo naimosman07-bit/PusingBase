@@ -16,10 +16,40 @@ import WbscCheatSheet from './components/WbscCheatSheet';
 import { Trophy, HelpCircle, FileText, Settings, Heart, Plus, BookOpen, VolumeX, ArrowLeft, HeartOff, Landmark, Share } from 'lucide-react';
 
 export default function App() {
-  const [gameState, setGameState] = useState<GameState>(createBlankGame());
-  const [historyStack, setHistoryStack] = useState<string[]>([]); // Serialized JSON state stack for 100% accurate Undo
+  const [gameState, setGameState] = useState<GameState>(() => {
+    const savedActive = localStorage.getItem('softball_scorebook_active_game');
+    if (savedActive) {
+      try {
+        return JSON.parse(savedActive);
+      } catch (e) {
+        console.error('Failed to parse saved active game:', e);
+      }
+    }
+    return createBlankGame();
+  });
+
+  const [historyStack, setHistoryStack] = useState<string[]>(() => {
+    const savedStack = localStorage.getItem('softball_scorebook_history_stack');
+    if (savedStack) {
+      try {
+        return JSON.parse(savedStack);
+      } catch (e) {
+        console.error('Failed to parse saved history stack:', e);
+      }
+    }
+    return [];
+  });
+
   const [gamesList, setGamesList] = useState<GameState[]>([]);
-  const [language, setLanguage] = useState<Language>('ms'); // Default to 'ms' since user requested in Malay
+
+  const [language, setLanguage] = useState<Language>(() => {
+    const savedLang = localStorage.getItem('softball_scorebook_language');
+    if (savedLang === 'en' || savedLang === 'ms') {
+      return savedLang;
+    }
+    return 'ms'; // Default to 'ms' since user requested in Malay
+  });
+
   const [mobileTab, setMobileTab] = useState<'score' | 'field' | 'actions' | 'roster' | 'logs'>('score');
 
   // Live Substitution local dropdown states
@@ -38,6 +68,21 @@ export default function App() {
       }
     }
   }, []);
+
+  // Save active game states to localStorage whenever they change
+  useEffect(() => {
+    if (gameState) {
+      localStorage.setItem('softball_scorebook_active_game', JSON.stringify(gameState));
+    }
+  }, [gameState]);
+
+  useEffect(() => {
+    localStorage.setItem('softball_scorebook_history_stack', JSON.stringify(historyStack));
+  }, [historyStack]);
+
+  useEffect(() => {
+    localStorage.setItem('softball_scorebook_language', language);
+  }, [language]);
 
   // Live Timer Countdown Interval
   useEffect(() => {
